@@ -1,7 +1,7 @@
 let addToy = false;
 
 document.addEventListener("DOMContentLoaded", () => {
-    function getToys() {
+    const getToys = () => {
         document.querySelector("#toy-collection").innerHTML = ""
         fetch("http://localhost:3000/toys", {
             method: "GET",
@@ -25,42 +25,42 @@ document.addEventListener("DOMContentLoaded", () => {
     getToys();
 
 
-    const addBtn = document.querySelector("#new-toy-btn");
-    const toyFormContainer = document.querySelector(".container");
+  const addBtn = document.querySelector("#new-toy-btn");
+  const toyFormContainer = document.querySelector(".container");
 
-    addBtn.addEventListener("click", (e) => {
+  addBtn.addEventListener("click", (e) => {
 
-        addToy = !addToy;
-        if (addToy) {
-            toyFormContainer.style.display = "block";
-        } else {
-            toyFormContainer.style.display = "none";
-        }
-    });
+    addToy = !addToy;
+    if (addToy) {
+      toyFormContainer.style.display = "block";
+    } else {
+      toyFormContainer.style.display = "none";
+    }
+  });
 
-    const newBtn = document.querySelector('input[name="submit"]');
-    const toyName = document.querySelector('input[name="name"]');
-    const toyImage = document.querySelector('input[name="image"]');
+const newBtn = document.querySelector('input[name="submit"]');
+const toyName = document.querySelector('input[name="name"]');
+const toyImage = document.querySelector('input[name="image"]');
 
-    newBtn.addEventListener("click", (e) => {
-        e.preventDefault();
+newBtn.addEventListener("click", (e) => {
+    e.preventDefault();
 
-        // hide & seek with the form
-        fetch("http://localhost:3000/toys", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify({
-                "name": toyName.value,
-                "image": toyImage.value,
-                "likes": 0
-            })
+    // hide & seek with the form
+    fetch("http://localhost:3000/toys", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+            "name": toyName.value,
+            "image": toyImage.value,
+            "likes": 0
+        })
 
-        }).then(r => r.json())
-        getToys();
-    });
+    }).then(r => r.json())
+    getToys();
+});
 
     const container = document.querySelector("#toy-collection");
 
